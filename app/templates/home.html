@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sistema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</head>
+
+<body>
+    <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
+        <a href="/">
+            <h1 class="text-lg font-bold">Home</h1>
+        </a>
+
+        <nav>
+            <ul class="flex gap-2">
+                <li>
+                    <a href="#" class="px-1 py-2 w-[90px] bg-slate-50 text-slate-950 font-semibold rounded-md">
+                        Entrar
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#"
+                        class="box-border p-2 w-[90px] outline outline-2 outline-slate-50 text-slate-50 font-semibold rounded-md hover:bg-slate-50 transition-colors duration-300 hover:text-slate-950">
+                        Cadastrar
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</body>
+
+</html>
