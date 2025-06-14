@@ -2,6 +2,16 @@
 
 Este sistema foi desenvolvido como parte do trabalho final da disciplina de **Banco de Dados**. Ele permite o gerenciamento de funcionários e seus respectivos patrimônios de forma simples e eficiente.
 
+
+## IMPORTANTE! Padrões de Commit
+- adicionar feature -> ex: **feat:** adicionar uma funcionalidade no botão x
+- corrigir um bug -> ex: **fix:** corrigindo o campo nome
+- refatoração -> ex: **refactor:** refatorando o layout da página tal
+- mexer no **README** -> ex: **docs:** intrução de como rodar o projeto
+- mexer em funcionalidade que não afetam o código fonte -> ex: **chore:** modificando a depedência x
+- mexer em CSS -> ex: **style:** adicionando espaçamento entre linhas
+
+
 ## Como baixar o projeto na sua máquina
 
 Rode no seu terminal
