@@ -6,32 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Sistema</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 
 <body>
-    <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
-        <a href="/">
-            <h1 class="text-lg font-bold">Home</h1>
-        </a>
 
-        <nav>
-            <ul class="flex gap-2">
-                <li>
-                    <a href="#" class="px-1 py-2 w-[90px] bg-slate-50 text-slate-950 font-semibold rounded-md">
-                        Entrar
-                    </a>
-                </li>
+    <body>
+        <!-- wrapper geral com referência para absolute -->
+        <div class="relative" x-data="{ show: false }">
+            <!-- HEADER -->
+            <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
+                <a href="/home">
+                    <h1 class="text-lg font-bold">Home</h1>
+                </a>
 
-                <li>
-                    <a href="#"
-                        class="box-border p-2 w-[90px] outline outline-2 outline-slate-50 text-slate-50 font-semibold rounded-md hover:bg-slate-50 transition-colors duration-300 hover:text-slate-950">
-                        Cadastrar
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-</body>
+                <!-- Botão que aciona o menu -->
+                <button @click="show = !show" @click.outside="show = false">
+                    <template x-if="!show">
+                        <img src="/static/icons/menu.svg" alt="Menu" />
+                    </template>
+                    <template x-if="show">
+                        <img src="/static/icons/close.svg" alt="Fechar" />
+                    </template>
+                </button>
+            </header>
+
+            <!-- MENU DROPDOWN -->
+            <div x-show="show" x-cloak x-transition
+                class="absolute right-8 top-[100%] mt-2 w-56 origin-top-right bg-white text-black border rounded shadow z-10 p-4">
+                <h2 class="font-semibold px-4 pt-3">Olá fulano</h2>
+                <ul class="mt-2">
+                    <li class="block px-4 py-2"><a href="#">Ver perfil</a></li>
+                    <li class="block px-4 py-2"><a href="#">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Alpinejs Core -->
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    </body>
 
 </html>
