@@ -63,3 +63,9 @@ npx tailwindcss -i ./app/assets/input.css -o ./app/static/output.css --watch
 python app.py
 ```
 > **Importante!** Certifique-se que todas depedências como flask e tailwindcss estão instaladas corretamente.
+
+## Como utilizar o tailwind css no templates
+Em um arquivo template use
+```bash
+<link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+```
