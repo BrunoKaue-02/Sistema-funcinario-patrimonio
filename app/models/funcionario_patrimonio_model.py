@@ -1,18 +1,18 @@
 from datetime import date
 from sqlalchemy import ForeignKey, String, Date
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 from app.database.db import db 
 
 class Funcionario_Patrimonio(db.Model):
     __tablename__ = 'funcionario_patrimonio'
 
-    id_funcionario_patrimonio = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    data_atribuicao = db.Column(db.Date, nullable=False)
-    data_devolucao = db.Column(db.Date, nullable=True)
+    id_funcionario_patrimonio = mapped_column(db.Integer, primary_key=True, autoincrement=True)
+    data_atribuicao = mapped_column(db.Date, nullable=False)
+    data_devolucao = mapped_column(db.Date, nullable=True)
 
     # Foreign Keys
-    id_funcionario = db.Column(db.Integer, db.ForeignKey('funcionario.id_funcionario'), nullable=False)
-    id_patrimonio = db.Column(db.Integer, db.ForeignKey('patrimonio.id_patrimonio'), nullable=False)
+    id_funcionario = mapped_column(db.Integer, db.ForeignKey('funcionario.id_funcionario'), nullable=False)
+    id_patrimonio = mapped_column(db.Integer, db.ForeignKey('patrimonio.id_patrimonio'), nullable=False)
 
     # Relacionamentos
     funcionario = db.relationship('Funcionario', backref=db.backref('patrimonio_atribuicoes', lazy=True))

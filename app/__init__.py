@@ -7,9 +7,9 @@ def create_app():
     app = Flask(__name__)
 
     load_dotenv()
-
-    URL = os.getenv('DATABASE_URL');
-
+    print("DATABASE_URL:", os.getenv("DATABASE_URL"))  
+    URL = os.getenv('DATABASE_URL')
+    #print("URL do banco:"URL)
     # Configuração do banco 
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
