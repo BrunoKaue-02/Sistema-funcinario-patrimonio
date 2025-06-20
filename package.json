@@ -4,7 +4,8 @@
   "description": "Sistema-funcinario-patrimonio",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx tailwindcss -i ./app/assets/input.css -o ./app/static/output.css --watch"
   },
   "repository": {
     "type": "git",
