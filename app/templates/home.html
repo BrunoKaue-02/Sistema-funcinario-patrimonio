@@ -10,40 +10,83 @@
 
 <body>
 
-    <body>
-        <!-- wrapper geral com referência para absolute -->
-        <div class="relative" x-data="{ show: false }">
-            <!-- HEADER -->
-            <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
-                <a href="/home">
-                    <h1 class="text-lg font-bold">Home</h1>
-                </a>
+    <!-- wrapper geral com referência para absolute -->
+    <div class="relative" x-data="{ show: false }">
+        <!-- HEADER -->
+        <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
+            <a href="/home">
+                <h1 class="text-lg font-bold">Home</h1>
+            </a>
 
-                <!-- Botão que aciona o menu -->
-                <button @click="show = !show" @click.outside="show = false">
-                    <template x-if="!show">
-                        <img src="/static/icons/menu.svg" alt="Menu" />
-                    </template>
-                    <template x-if="show">
-                        <img src="/static/icons/close.svg" alt="Fechar" />
-                    </template>
-                </button>
-            </header>
+            <!-- Botão que aciona o menu -->
+            <button @click="show = !show" @click.outside="show = false">
+                <template x-if="!show">
+                    <img src="/static/icons/menu.svg" alt="Menu" />
+                </template>
+                <template x-if="show">
+                    <img src="/static/icons/close.svg" alt="Fechar" />
+                </template>
+            </button>
+        </header>
 
-            <!-- MENU DROPDOWN -->
-            <div x-show="show" x-cloak x-transition
-                class="absolute right-8 top-[100%] mt-2 w-56 origin-top-right bg-white text-black border rounded shadow z-10 p-4">
-                <h2 class="font-semibold px-4 pt-3">Olá fulano</h2>
-                <ul class="mt-2">
-                    <li class="block px-4 py-2"><a href="#">Ver perfil</a></li>
-                    <li class="block px-4 py-2"><a href="#">Sair</a></li>
-                </ul>
-            </div>
+        <!-- MENU DROPDOWN -->
+        <div x-show="show" x-cloak x-transition
+            class="absolute right-8 top-[100%] mt-2 w-56 origin-top-right bg-white text-black border rounded shadow z-10 p-4">
+            <h2 class="font-semibold px-4 pt-3">Olá fulano</h2>
+            <ul class="mt-2">
+                <li class="block px-4 py-2"><a href="#">Ver patrimonios</a></li>
+                <li class="block px-4 py-2"><a href="#">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="w-full h-screen flex justify-center items-center flex-col bg-gray-100 p-4"">
+        <div>
+        <div class=" w-full flex justify-between items-center">
+        <h1 class="text-3xl font-semibold">Funcionarios</h1>
+        <a href="#" class="p-2 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-800 transition ">
+            <img src=" {{ url_for('static', filename='icons/add.svg') }}" alt="Adicionar funcionario">
+        </a>
+        </div>
+        <table class="mt-1 table-auto md:table-fixed border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+            <thead>
+                <tr class="bg-slate-950 text-white">
+                    <th class="px-6 py-3 text-left">ID</th>
+                    <th class="px-6 py-3 text-left">Nome</th>
+                    <th class="px-6 py-3 text-left">Email</th>
+                    <th class="px-6 py-3 text-left">CPF</th>
+                    <th class="px-6 py-3 text-left">Data de Nascimento</th>
+                    <th class="px-6 py-3 text-left">Genêro</th>
+                    <th class="px-6 py-3 text-left">Controle</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                <tr class="bg-white hover:bg-blue-50">
+                    <td class="px-6 py-4">-</td>
+                    <td class="px-6 py-4">-</td>
+                    <td class="px-6 py-4">-</td>
+                    <td class="px-6 py-4">-</td>
+                    <td class="px-6 py-4">-</td>
+                    <td class="px-6 py-4">-</td>
+                    <td class="px-6 py-4 flex gap-4">
+                        <button class="p-2 bg-red-600 text-white rounded-md hover:bg-red-500 transition">
+                            <img src="{{ url_for('static', filename='icons/remove.svg') }}" alt="Remover">
+                        </button>
+                        <button class="p-2 bg-slate-900 text-white rounded-md hover:bg-slate-800 transition">
+                            <img src="{{ url_for('static', filename='icons/edit.svg') }}" alt="Editar">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
         </div>
 
+    </main>
 
-        <!-- Alpinejs Core -->
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    </body>
+    <!-- Alpinejs Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
 
 </html>
