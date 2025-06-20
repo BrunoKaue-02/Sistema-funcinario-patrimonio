@@ -47,19 +47,27 @@ Sistema-funcionario-patrimonio/ <br>
 ├── .gitignore <br>
 └── tailwind.config.js <br>
 
-##  Como iniciar o projeto
+## Requisitos
+- ter python instalado
+- ter do node instalado
+  
+##  Como iniciar o projetos
 
 Siga os passos abaixo para rodar o projeto localmente:
 
-### 1° Rodar o Tailwind CSS (modo watch)
-
-Este comando irá compilar o CSS a partir do arquivo `input.css` e manter a escuta ativa para alterações:
-
+### 1° Baixar as depedencias do requirements
 ```bash
-npx tailwindcss -i ./app/assets/input.css -o ./app/static/output.css --watch
+  pip install -r requirements.txt
+```
+
+### 2° Rodar o npm
+```bash
+  npm run dev
 ```
 ### 2° Iniciar a aplicação com Python
 ```bash
 python app.py
 ```
+
+> **Ajustar a conexão com banco de dados mysql+pymysql//root:senha@localhost:porta/sua_tabela** <br>
 > **Importante!** Certifique-se que todas depedências como flask e tailwindcss estão instaladas corretamente.
