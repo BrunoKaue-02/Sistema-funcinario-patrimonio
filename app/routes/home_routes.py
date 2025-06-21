@@ -10,6 +10,14 @@ def index():
 def home():
     return render_template('home.html')
 
+@home_bp.route("/patrimonios")
+def patrimonios():
+    return render_template('patrimonios.html')
+
 @home_bp.route('/sign_up')
 def sign_up():
     return render_template('sign_up.html')
+
+@home_bp.route('/formulario_patrimonios')
+def formulario_patrimonios():
+    return render_template('formulario_patrimonios.html')
