@@ -13,6 +13,7 @@ class Funcionario(db.Model):
     senha: Mapped[str] = mapped_column(String(255), nullable=False)
     genero: Mapped[str] = mapped_column(String(100), nullable=False)
     data_nascimento: Mapped[date] = mapped_column(Date, nullable=False)
+    endereco: Mapped[str] = mapped_column(String(255), nullable=False)
 
     def to_dict(self) -> dict:
         return {
@@ -22,6 +23,7 @@ class Funcionario(db.Model):
             "cpf": self.cpf,
             "genero": self.genero,
             "data_nascimento": self.data_nascimento.isoformat(),
+            "endereco": self.endereco
         }
 
     def __repr__(self) -> str:
@@ -33,4 +35,5 @@ class Funcionario(db.Model):
             f"cpf={self.cpf!r}, "
             f"genero={self.genero!r}, "
             f"data_nascimento={self.data_nascimento!r})"
+            f"endereco={self.endereco}"
         )
