@@ -31,8 +31,10 @@ def create_app():
     # Importa e registra as rotas (blueprints) da aplicação
     from app.routes.home_routes import home_bp
     from app.routes.funcionario_routes import funcionario_bp
-    app.register_blueprint(home_bp)            # Rotas de login, cadastro e home
+    from app.routes.index_routes import index_bp
+    app.register_blueprint(home_bp)            
     app.register_blueprint(funcionario_bp)     # Rotas relacionadas ao funcionário
+    app.register_blueprint(index_bp) 
 
     # Retorna a aplicação configurada
     return app
