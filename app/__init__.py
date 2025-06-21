@@ -4,26 +4,35 @@ import os
 from dotenv import load_dotenv
 
 def create_app():
-    app = Flask(__name__)
-
+    # Carrega as variáveis de ambiente do arquivo .env
     load_dotenv()
 
-    URL = os.getenv('DATABASE_URL');
+    # Cria uma instância da aplicação Flask
+    app = Flask(__name__)
 
-    # Configuração do banco 
+    # Define a chave secreta da aplicação (necessária para sessões, cookies, CSRF, etc)
+    app.secret_key = os.getenv('SECRET_KEY')  # Recomendado manter essa chave em segredo no .env
+
+    # Apenas para fins de depuração, imprime a URL do banco no terminal
+    print("DATABASE_URL:", os.getenv("DATABASE_URL"))  
+
+    # Configura a string de conexão com o banco de dados
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+
+    # Desativa notificações de modificação de objetos (economiza recursos)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # inicializando o SQlAchemy com o app
+    # Inicializa o SQLAlchemy com a aplicação Flask
     db.init_app(app)
 
-    # Importação das model
+    # Importa o modelo de dados (tabelas) - importante estar após o init_app
     from app.models import Funcionario
 
-    # Importação e registro das rotas
+    # Importa e registra as rotas (blueprints) da aplicação
     from app.routes.home_routes import home_bp
     from app.routes.funcionario_routes import funcionario_bp
-    app.register_blueprint(home_bp)
-    app.register_blueprint(funcionario_bp)
+    app.register_blueprint(home_bp)            # Rotas de login, cadastro e home
+    app.register_blueprint(funcionario_bp)     # Rotas relacionadas ao funcionário
 
+    # Retorna a aplicação configurada
     return app
