@@ -1,9 +1,6 @@
 .env
 test.py
 api.http
-<<<<<<< HEAD
 node_modules/
-=======
 venv
 node_modules
->>>>>>> dev-bruno
