@@ -71,3 +71,9 @@ python app.py
 
 > **Ajustar a conexão com banco de dados mysql+pymysql//root:senha@localhost:porta/sua_tabela** <br>
 > **Importante!** Certifique-se que todas depedências como flask e tailwindcss estão instaladas corretamente.
+
+## Como utilizar o tailwind css no templates
+Em um arquivo template use
+```bash
+<link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+```

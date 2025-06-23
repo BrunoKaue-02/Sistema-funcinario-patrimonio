@@ -2,79 +2,100 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home - Sistema</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}" />
 </head>
 
 <body>
     <div class="flex justify-center items-center w-screen h-screen">
-        <form 
-            action="#" 
-            class="w-full max-w-md min-w-[180px] p-4" 
-            autocomplete="off"
-            x-data="{ show: false }"
-        >
-            <h1 class="text-3xl font-bold">
-                Olá, Bem vindo(a)
-                <br> de volta!
-            </h1>
+        <div class="w-full max-w-md min-w-[180px] p-4">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="mb-4 text-red-600 font-semibold">
+                {% for msg in messages %}
+                <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
 
-            <div class="flex flex-col mt-4 gap-1">
-                <label class="font-semibold" for="email">Email</label>
-                <input 
-                    class="box-border border-solid border-2 rounded-md p-2 border-slate-900" 
-                    type="text" 
-                    name="email"
-                    placeholder="exemplo@exemplo.com"
-                >
-            </div>
+            <form 
+                action="/" 
+                method="POST"
+                autocomplete="off"
+                x-data="{ show: false }"
+                class="flex flex-col gap-4"
+            >
+                <h1 class="text-3xl font-bold">
+                    Olá, Bem vindo(a)
+                    <br /> de volta!
+                </h1>
 
-            <div class="flex flex-col mt-3 gap-1">
-                <label class="font-semibold" for="senha">Senha</label>
-                <div class="flex overflow-hidden rounded-md border-2 border-slate-900">
-                    <input 
-                        :type="show ? 'text': 'password'" 
-                        name="senha" 
-                        placeholder="Sua senha"
-                        class="flex-1 px-3 py-2"
-                    >
-
-             <button 
-                type="button"
-                class="bg-slate-900 px-3 flex items-center justify-center hover:bg-slate-800 transition"
-                @click="show = !show"
-             >
-                <!-- Aqui o ícone pode inverter conforme o estado show -->
-                <template x-if="!show">
-                    <img src="{{ url_for('static', filename='icons/eye.svg') }}" alt="Mostrar senha" class="w-5 h-5">
-                </template>
-                <template x-if="show">
-                    <img src="{{ url_for('static', filename='icons/eye_closed.svg') }}" alt="Esconder senha" class="w-5 h-5">
-                </template>
-            </button>
+                <div class="flex flex-col gap-1">
+                    <label class="font-semibold" for="email">Email</label>
+                    <input
+                        class="box-border border-solid border-2 rounded-md p-2 border-slate-900"
+                        type="text"
+                        name="email"
+                        placeholder="exemplo@exemplo.com"
+                    />
                 </div>
-            </div>
 
-            <div class="mt-2">
-                <a class="hover:underline" href="#" class="block">Esqueci minha senha</a>
-            </div>
+                <div class="flex flex-col gap-1">
+                    <label class="font-semibold" for="senha">Senha</label>
+                    <div
+                        class="flex overflow-hidden rounded-md border-2 border-slate-900"
+                    >
+                        <input
+                            :type="show ? 'text' : 'password'"
+                            name="senha"
+                            placeholder="Sua senha"
+                            class="flex-1 px-3 py-2"
+                        />
+                        <button
+                            type="button"
+                            class="bg-slate-900 px-3 flex items-center justify-center hover:bg-slate-800 transition"
+                            @click="show = !show"
+                        >
+                            <template x-if="!show">
+                                <img
+                                    src="{{ url_for('static', filename='icons/eye.svg') }}"
+                                    alt="Mostrar senha"
+                                    class="w-5 h-5"
+                                />
+                            </template>
+                            <template x-if="show">
+                                <img
+                                    src="{{ url_for('static', filename='icons/eye_closed.svg') }}"
+                                    alt="Esconder senha"
+                                    class="w-5 h-5"
+                                />
+                            </template>
+                        </button>
+                    </div>
+                </div>
 
-            <div class="flex flex-col justify-center items-center mt-4">
+                <div>
+                    <a href="#" class="hover:underline block">Esqueci minha senha</a>
+                </div>
 
-                <button class="p-2 w-full text-white bg-slate-900 font-semibold rounded-md shadow-md hover:bg-slate-800 transition">
+                <button
+                    type="submit"
+                    class="p-2 w-full text-white bg-slate-900 font-semibold rounded-md shadow-md hover:bg-slate-800 transition"
+                >
                     Entrar
                 </button>
 
-                <div class="p-4">
+                <div class="p-4 text-center">
                     <span>Não possui uma conta?</span>
-                    <a class="hover:underline" href="/sign_up">Criar uma conta</a>
+                    <a href="/sign_up" class="hover:underline">Criar uma conta</a>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
+
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 
