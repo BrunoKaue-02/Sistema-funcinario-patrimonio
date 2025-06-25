@@ -1,12 +1,30 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.database.db import db
 from werkzeug.security import generate_password_hash
 from datetime import datetime
-from flask import request, redirect, url_for, Blueprint, flash, session
 from app.models import Funcionario
-from app.controller.funcionario_controller import cadastrar_funcionario, deletar_funcionario_por_id
+from app.controller.funcionario_controller import cadastrar_funcionario
 
 funcionario_bp = Blueprint('funcionario', __name__)
+
+# ✅ LISTAGEM COM FILTRO DE BUSCA
+@funcionario_bp.route('/home', methods=['GET'])
+def listar_funcionarios():
+    busca = request.args.get('busca', '').strip()
+    filtro = request.args.get('filtro', '').strip()
+
+    query = Funcionario.query
+
+    if busca and filtro == 'nome':
+        query = query.filter(Funcionario.nome.like(f"%{busca}%"))
+    elif busca and filtro == 'idade':
+        try:
+            query = query.filter(Funcionario.idade == int(busca))
+        except ValueError:
+            query = query.filter(False)  # Se não for número, retorna nada
+
+    funcionarios = query.all()
+    return render_template("home_funcionarios.html", funcionarios=funcionarios)
 
 @funcionario_bp.route('/cadastrar', methods=['POST'])
 def cadastrar():
@@ -29,30 +47,23 @@ def cadastrar():
     except ValueError:
         return "Data de nascimento inválida. Use o formato dd/mm/aaaa.", 400
 
-    # Aqui gera o hash da senha antes de salvar
     senha_hash = generate_password_hash(senha)
-
-    # Passa a senha criptografada para salvar no banco
     cadastrar_funcionario(nome, genero, data_nascimento, email, endereco, cpf, senha_hash)
 
     return redirect(url_for('index.index'))
 
-@funcionario_bp.route('/deletar/<int:id>', methods=['GET','POST'])
+@funcionario_bp.route('/deletar/<int:id>', methods=['POST'])
 def deletar_funcionario(id):
-    #if 'user_id' not in session:
-     #   flash('Você precisa estar logado para deletar um funcionário.')
-     #   return redirect(url_for('home.home'))
-    
-    if id == session['user_id']:
+    if id == session.get('user_id'):
         flash('Você não pode deletar sua própria conta.')
-        return redirect(url_for('home.home'))
-    
+        return redirect(url_for('funcionario.listar_funcionarios'))
+
     funcionario = Funcionario.query.get(id)
     if funcionario:
         db.session.delete(funcionario)
         db.session.commit()
         flash('Funcionário deletado com sucesso.')
     else:
-        flash('Funcionário não encontrado')
+        flash('Funcionário não encontrado.')
 
-    return redirect(url_for('home.home'))
+    return redirect(url_for('funcionario.listar_funcionarios'))

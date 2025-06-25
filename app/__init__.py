@@ -32,9 +32,20 @@ def create_app():
     from app.routes.home_routes import home_bp
     from app.routes.funcionario_routes import funcionario_bp
     from app.routes.index_routes import index_bp
+    from app.routes.formulario_patrimonio_routes import patrimonio_bp
+    from app.routes.patrimonio_routes import homeP_bp
+    from app.routes.fabricante_routes import fabricante_bp
+    from app.routes.notas_routes import nota_bp
+    from app.routes.vendedor_routes import vendedor_bp
+    
     app.register_blueprint(home_bp)            
-    app.register_blueprint(funcionario_bp)     # Rotas relacionadas ao funcionário
+    app.register_blueprint(funcionario_bp)
+    app.register_blueprint(patrimonio_bp)
     app.register_blueprint(index_bp) 
+    app.register_blueprint(homeP_bp)
+    app.register_blueprint(fabricante_bp)
+    app.register_blueprint(nota_bp)
+    app.register_blueprint(vendedor_bp)
 
     # Retorna a aplicação configurada
     return app

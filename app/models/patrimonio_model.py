@@ -1,21 +1,35 @@
-from datetime import date
-from sqlalchemy import ForeignKey, String, Date
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from app.database.db import db 
+from app.database.db import db
+from sqlalchemy import String, Integer, Float
+from sqlalchemy.orm import Mapped, mapped_column
 
 class Patrimonio(db.Model):
     __tablename__ = 'patrimonio'
 
-    id_patrimonio = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    produto = db.Column(db.String(255), nullable=False)
-    n_serie = db.Column(db.String(255), nullable=False)
-    valor = db.Column(db.Float, nullable=False)
+    id_patrimonio: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    produto: Mapped[str] = mapped_column(String(255), nullable=False)
+    n_serie: Mapped[int] = mapped_column(Integer, nullable=False)
+    valor: Mapped[float] = mapped_column(Float, nullable=False)
+    fabricante: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    # Foreign Key
-    id_fabricante = db.Column(db.Integer, db.ForeignKey('fabricante.id_fabricante'), nullable=False)
+    # Se quiser adicionar relacionamento futuramente:
+    # id_funcionario: Mapped[int] = mapped_column(ForeignKey('funcionario.id_funcionario'))
 
-    # Relação
-    fabricante = db.relationship('Fabricante', backref=db.backref('patrimonios', lazy=True))
+    def to_dict(self) -> dict:
+        return {
+            "id_patrimonio": self.id_patrimonio,
+            "produto": self.produto,
+            "n_serie": self.n_serie,
+            "valor": self.valor,
+            "fabricante": self.fabricante,
+            #"id_funcionario": self.id_funcionario if hasattr(self, 'id_funcionario') else None
+    }
 
-    def __repr__(self):
-        return f"<Patrimonio {self.produto} - Série: {self.n_serie}>"
+
+    def to_dict(self) -> dict:
+        return {
+            "id_patrimonio": self.id_patrimonio,
+            "produto": self.produto,
+            "n_serie": self.n_serie,
+            "valor": self.valor,
+            "fabricante": self.fabricante
+        }

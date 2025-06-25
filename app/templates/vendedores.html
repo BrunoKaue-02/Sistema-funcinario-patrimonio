@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vendedores - Sistema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+</head>
+
+<body x-data="{ show: false }" class="h-screen">
+    <div class="flex h-full">
+        <!-- MENU LATERAL -->
+        <aside x-show="show" x-transition x-cloak class="w-72 h-full bg-white border-r shadow z-10 p-4">
+            <h1 class="font-semibold text-2xl px-4 pt-3">Olá {{ session['user_email'] }}</h1>
+            <ul class="mt-2">
+                <li class="block px-6 py-4"><a href="/patrimonios">Patrimônios</a></li>
+                <li class="block px-6 py-4"><a href="/home_notas">Ver Notas Fiscais</a></li>
+                <li class="block px-6 py-4"><a href="/home_fabricantes">Fabricantes</a></li>
+                <li class="block px-6 py-4"><a href="#">Sair</a></li>
+            </ul>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <div class="flex-1 transition-all duration-300 ease-in-out">
+
+            <!-- HEADER -->
+            <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
+                <button @click="show = !show" @click.outside="show = false">
+                    <template x-if="!show">
+                        <img src="/static/icons/menu.svg" alt="Menu" />
+                    </template>
+                    <template x-if="show">
+                        <img src="/static/icons/close.svg" alt="Fechar" />
+                    </template>
+                </button>
+            </header>
+
+            <!-- MAIN -->
+            <main class="p-4 bg-gray-100 h-[calc(100%-64px)] overflow-auto">
+                <div class="w-full flex justify-between items-center mb-4">
+                    <h1 class="text-3xl font-semibold">Vendedores</h1>
+
+                    <form method="post" action="{{ url_for('vendedor.listar_vendedores_route') }}" class="flex gap-4 max-w-xl mb-4">
+                        <input
+                            type="text"
+                            name="busca"
+                            placeholder="Buscar por loja..."
+                            class="flex-1 px-4 py-2 border-2 border-slate-900 rounded-md focus:ring-2 focus:ring-slate-500"
+                            value="{{ request.form.get('busca') }}"
+                        >
+                        <button
+                            type="submit"
+                            class="px-4 py-2 bg-slate-900 text-white rounded-md hover:bg-slate-800 transition"
+                        >
+                            Buscar
+                        </button>
+                    </form>
+
+                    <a href="{{ url_for('vendedor.novo_vendedor_route') }}"
+                        class="fixed bottom-0 right-0 m-2 p-2 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-800 transition"
+                        title="Adicionar vendedor"
+                    >
+                        <img src="{{ url_for('static', filename='icons/add.svg') }}" alt="Adicionar vendedor">
+                    </a>
+                </div>
+
+                <table class="w-full table-auto md:table-fixed border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+                    <thead>
+                        <tr class="bg-slate-950 text-white">
+                            <th class="px-6 py-3 text-left">ID</th>
+                            <th class="px-6 py-3 text-left">Loja</th>
+                            <th class="px-6 py-3 text-left">CNPJ</th>
+                            <th class="px-6 py-3 text-left">Email</th>
+                            <th class="px-6 py-3 text-left">Endereço</th>
+                            <th class="px-6 py-3 text-left">Controle</th>
+                        </tr>
+                    </thead>
+                    {% for vendedor in vendedores %}
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="bg-white hover:bg-blue-50">
+                            <td class="px-6 py-4">{{ vendedor.id_vendedor }}</td>
+                            <td class="px-6 py-4">{{ vendedor.loja }}</td>
+                            <td class="px-6 py-4">{{ vendedor.cnpj }}</td>
+                            <td class="px-6 py-4">{{ vendedor.email }}</td>
+                            <td class="px-6 py-4">{{ vendedor.endereco or '-' }}</td>
+                            <td class="px-6 py-4 flex gap-4">
+                                <a href="{{ url_for('vendedor.editar_vendedor_route', id=vendedor.id_vendedor) }}"
+                                    class="p-2 bg-slate-900 text-white rounded-md hover:bg-slate-800 transition"
+                                    title="Editar vendedor">
+                                    <img src="{{ url_for('static', filename='icons/edit.svg') }}" alt="Editar">
+                                </a>
+
+                                <form action="{{ url_for('vendedor.deletar_vendedor_route', id=vendedor.id_vendedor) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir este vendedor?');">
+                                    <button type="submit"
+                                        class="p-2 bg-red-600 text-white rounded-md hover:bg-red-500 transition"
+                                        title="Excluir vendedor">
+                                        <img src="{{ url_for('static', filename='icons/remove.svg') }}" alt="Remover">
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">Nenhum vendedor cadastrado.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
+
+    <!-- Alpinejs Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+
+</html>

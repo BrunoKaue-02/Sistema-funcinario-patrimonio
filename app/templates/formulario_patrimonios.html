@@ -2,77 +2,88 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Sistema</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adicionar Patrimônio - Sistema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}" />
 </head>
 
 <body>
     <div class="flex justify-center items-center w-screen h-screen">
-        <form action="#" class="w-full max-w-md min-w-[180px] p-4" autocomplete="off" x-data="{ show: false }" method="post">
-            <h1 class="text-3xl font-bold mt-8">
-                Adicionar um patrimônio
-            </h1>
+        <form action="{{ url_for('patrimonio.adicionar_patrimonio') }}" 
+              class="w-full max-w-md min-w-[180px] p-4" 
+              autocomplete="off" 
+              x-data="{ show: false }" 
+              method="post">
+
+            <h1 class="text-3xl font-bold mt-8">Adicionar um patrimônio</h1>
 
             <!-- Campo Nome do Produto -->
             <div class="flex flex-col mt-4 gap-1">
-                <label class="font-semibold" for="nome_produto">Nome do produto</label>
-                <input 
-                    class="box-border border-solid border-2 rounded-md p-2 border-slate-900" 
+                <label class="font-semibold" for="produto">Nome do produto</label>
+                <input
+                    class="box-border border-solid border-2 rounded-md p-2 border-slate-900"
                     type="text"
-                    id="nome_produto"
-                    name="nome_produto" 
+                    id="produto"
+                    name="produto"
                     placeholder="Nome do produto"
-                    required>
+                    required
+                />
             </div>
 
             <!-- Campo Fabricante -->
             <div class="flex flex-col mt-4 gap-1">
                 <label class="font-semibold" for="fabricante">Fabricante</label>
-                <input 
-                    class="box-border border-solid border-2 rounded-md p-2 border-slate-900" 
-                    type="text" 
-                    id="fabricante"
-                    name="fabricante" 
-                    placeholder="Fabricante..."
-                    required>
+                        <select
+                            id="fabricante"
+                            name="fabricante"
+                            class="md:w-200 px-2 py-2 bg-white border-2 border-slate-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-500"
+                            >
+                            <option value="Dell">Dell</option>
+                            <option value="Lenovo">Lenovo</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Apple">Apple</option>
+                        </select>
             </div>
 
             <div class="flex gap-4 mt-2 flex-wrap">
                 <!-- Campo Número de Série -->
                 <div class="flex flex-col mt-2 gap-1 w-full md:w-[calc(50%-0.5rem)]">
                     <label class="font-semibold" for="n_serie">Número de série</label>
-                    <input 
-                        class="box-border border-solid border-2 rounded-md p-2 border-slate-900" 
+                    <input
+                        class="box-border border-solid border-2 rounded-md p-2 border-slate-900"
                         type="text"
                         id="n_serie"
-                        name="n_serie" 
+                        name="n_serie"
                         placeholder="Número de série"
-                        required>
+                        required
+                    />
                 </div>
 
                 <!-- Campo Preço -->
                 <div class="flex flex-col mt-2 gap-1 w-full md:w-[calc(50%-0.5rem)]">
-                    <label class="font-semibold" for="preco">Preço</label>
-                    <input 
-                        id="preco"
-                        name="preco" 
+                    <label class="font-semibold" for="valor">Preço</label>
+                    <input
+                        id="valor"
+                        name="valor"
                         type="text"
                         placeholder="R$ 0,00"
                         x-mask:dynamic="$money($input, '.', ',', 4)"
                         class="box-border border-solid border-2 rounded-md p-2 border-slate-900"
-                        required>
+                        required
+                    />
                 </div>
-
             </div>
 
             <div class="flex flex-col justify-center items-center mt-4">
                 <button
-                    class="p-2 w-full text-white bg-slate-900 font-semibold rounded-md shadow-md hover:bg-slate-800 transition">
+                    type="submit"
+                    class="p-2 w-full text-white bg-slate-900 font-semibold rounded-md shadow-md hover:bg-slate-800 transition"
+                >
                     Cadastrar
                 </button>
             </div>
+
         </form>
     </div>
 
