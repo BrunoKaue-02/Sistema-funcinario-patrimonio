@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.database.db import db
 from werkzeug.security import generate_password_hash
-from datetime import datetime
-from app.models import Funcionario
+from datetime import datetime, date
+from app.models import Funcionario, Patrimonio, Funcionario_Patrimonio
 from app.controller.funcionario_controller import cadastrar_funcionario
 
 funcionario_bp = Blueprint('funcionario', __name__)
@@ -67,3 +67,47 @@ def deletar_funcionario(id):
         flash('Funcionário não encontrado.')
 
     return redirect(url_for('funcionario.listar_funcionarios'))
+
+@funcionario_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar_funcionario(id):
+    funcionario = Funcionario.query.get_or_404(id)
+    todos_patrimonios = Patrimonio.query.all()
+
+    if request.method == 'POST':
+        funcionario.nome = request.form.get('nome')
+        funcionario.genero = request.form.get('genero')
+        data_nascimento_str = request.form.get('data_nascimento')
+        funcionario.data_nascimento = datetime.strptime(data_nascimento_str, '%Y-%m-%d').date()
+        funcionario.email = request.form.get('email')
+        funcionario.endereco = request.form.get('endereco')
+        funcionario.cpf = request.form.get('cpf')
+        funcionario.senha = request.form.get('senha')
+
+        # Remove vínculos antigos
+        Funcionario_Patrimonio.query.filter_by(id_funcionario=funcionario.id_funcionario).delete()
+
+        # Adiciona novos vínculos
+        for id_patrimonio in request.form.getlist('patrimonios'):
+            novo_vinculo = Funcionario_Patrimonio(
+                id_funcionario=funcionario.id_funcionario,
+                id_patrimonio=int(id_patrimonio),
+                data_atribuicao=date.today()
+            )
+            db.session.add(novo_vinculo)
+
+        db.session.commit()
+        flash('Funcionário atualizado com sucesso!', 'success')
+        return redirect(url_for('home.home'))
+
+    # IDs dos patrimônios já atribuídos
+    ids_atribuidos = [
+        vinculo.id_patrimonio
+        for vinculo in funcionario.vinculos_patrimonios
+    ]
+
+    return render_template(
+        'editar_funcionario.html',
+        funcionario=funcionario,
+        todos_patrimonios=todos_patrimonios,
+        funcionario_ids_patrimonios=ids_atribuidos
+    )

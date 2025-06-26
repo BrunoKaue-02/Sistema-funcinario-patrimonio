@@ -8,7 +8,7 @@ class Patrimonio(db.Model):
     id_patrimonio: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     produto: Mapped[str] = mapped_column(String(255), nullable=False)
     n_serie: Mapped[int] = mapped_column(Integer, nullable=False)
-    valor: Mapped[float] = mapped_column(Float, nullable=False)
+    valor: Mapped[str] = mapped_column(String, nullable=False)
     fabricante: Mapped[str] = mapped_column(String(255), nullable=False)
 
     # Se quiser adicionar relacionamento futuramente:
