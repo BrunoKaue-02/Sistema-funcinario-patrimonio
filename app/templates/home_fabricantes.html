@@ -15,10 +15,11 @@
     <aside x-show="show" x-transition x-cloak class="w-72 h-full bg-white border-r shadow z-10 p-4">
       <h1 class="font-semibold text-2xl px-4 pt-3">Olá {{ session['user_email'] }}</h1>
       <ul class="mt-2">
+        <li class="block px-6 py-4"><a href="/home">Funcionários</a></li>
         <li class="block px-6 py-4"><a href="/patrimonios">Patrimônios</a></li>
-        <li class="block px-6 py-4"><a href="#">Notas fiscais</a></li>
+        <li class="block px-6 py-4"><a href="/home_notas">Notas Fiscais</a></li>
         <li class="block px-6 py-4"><a href="/home_fabricantes">Fabricantes</a></li>
-        <li class="block px-6 py-4"><a href="#">Sair</a></li>
+        <li class="block px-6 py-4"><a href="{{ url_for('index.logout') }}">Sair</a></li>
       </ul>
     </aside>
 
