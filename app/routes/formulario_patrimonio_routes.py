@@ -14,7 +14,6 @@ def adicionar_patrimonio():
         n_serie = request.form.get('n_serie')
         valor = request.form.get('valor')
         fabricante = request.form.get('fabricante')
-        #id_fabricante = 1  # fixo por enquanto
 
         cadastrar_patrimonio(produto, fabricante, n_serie, valor)
         flash('Patrimônio cadastrado com sucesso!')

@@ -12,7 +12,7 @@ def cadastrar_patrimonio(produto, fabricante, n_serie, valor):
         produto=produto,
         fabricante=fabricante,
         n_serie=n_serie,
-        valor=valor # garante que o valor venha como número
+        valor=valor
     )
     db.session.add(novo_patrimonio)
     db.session.commit()

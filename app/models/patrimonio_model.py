@@ -11,8 +11,6 @@ class Patrimonio(db.Model):
     valor: Mapped[str] = mapped_column(String, nullable=False)
     fabricante: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    # Se quiser adicionar relacionamento futuramente:
-    # id_funcionario: Mapped[int] = mapped_column(ForeignKey('funcionario.id_funcionario'))
 
     def to_dict(self) -> dict:
         return {
@@ -21,7 +19,6 @@ class Patrimonio(db.Model):
             "n_serie": self.n_serie,
             "valor": self.valor,
             "fabricante": self.fabricante,
-            #"id_funcionario": self.id_funcionario if hasattr(self, 'id_funcionario') else None
     }
 
 
