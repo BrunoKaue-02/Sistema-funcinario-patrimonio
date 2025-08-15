@@ -10,7 +10,7 @@
 
 <body>
     <div class="flex justify-center items-center w-screen h-screen">
-        <form action="{{ url_for('patrimonio.adicionar_patrimonio') }}" 
+        <form action="{{ url_for('home_patrimonio.adicionar_patrimonio') }}" 
               class="w-full max-w-md min-w-[180px] p-4" 
               autocomplete="off" 
               x-data="{ show: false }" 
@@ -68,7 +68,7 @@
                         name="valor"
                         type="text"
                         placeholder="R$ 0,00"
-                        x-mask:dynamic="$money($input, '.', ',', 4)"
+                        x-mask:dynamic="$money($input, ',', '.', 4)"
                         class="box-border border-solid border-2 rounded-md p-2 border-slate-900"
                         required
                     />

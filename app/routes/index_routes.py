@@ -15,15 +15,15 @@ def index():
         if usuario and check_password_hash(usuario.senha, senha):
             session['user_id'] = usuario.id_funcionario
             session['user_email'] = usuario.email
-            return redirect(url_for('index.home'))
+            return redirect(url_for('home.home'))
         else:
             flash('Email ou senha incorretos.')
             return redirect(url_for('index.index'))
 
     return render_template('index.html')
 
-@index_bp.route('/home')
-def home():
+@index_bp.route('/login')
+def login_page():
     if 'user_id' not in session:
         return redirect(url_for('index.index'))
     return render_template('home.html')

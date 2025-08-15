@@ -4,7 +4,7 @@ from app.database.db import db
 
 fabricante_bp = Blueprint('fabricante', __name__)
 
-@fabricante_bp.route('/home_fabricantes')
+@fabricante_bp.route('/fabricantes')
 def listar_fabricantes():
     fabricantes = Fabricante.query.all()
     return render_template("home_fabricantes.html", fabricantes=fabricantes)

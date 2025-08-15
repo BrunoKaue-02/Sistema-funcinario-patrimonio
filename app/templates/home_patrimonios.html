@@ -15,7 +15,7 @@
     <aside x-show="show" x-transition x-cloak class="w-72 h-full bg-white border-r shadow z-10 p-4">
       <h1 class="font-semibold text-2xl px-4 pt-3">Olá {{ session['nome'] }}</h1>
       <ul class="mt-2">
-        <li class="block px-6 py-4"><a href="/home">Funcionários</a></li>
+        <li class="block px-6 py-4"><a href="/funcionarios">Funcionários</a></li>
         <li class="block px-6 py-4"><a href="/patrimonios">Patrimônios</a></li>
         <li class="block px-6 py-4"><a href="/home_notas">Notas Fiscais</a></li>
         <li class="block px-6 py-4"><a href="/home_fabricantes">Fabricantes</a></li>
@@ -45,24 +45,6 @@
 
           <!-- FORM DE FILTRO E BUSCA -->
           <form method="post" action="{{ url_for('home_patrimonio.listar_patrimonios') }}" class="flex gap-4 max-w-xl mb-4 flex-wrap items-center">
-
-            <input
-              type="number"
-              step="0.01"
-              name="valor_min"
-              placeholder="Valor mínimo"
-              class="px-2 py-1 border border-gray-300 rounded-md"
-              value="{{ request.form.get('valor_min', '') }}"
-            >
-
-            <input
-              type="number"
-              step="0.01"
-              name="valor_max"
-              placeholder="Valor máximo"
-              class="px-2 py-1 border border-gray-300 rounded-md"
-              value="{{ request.form.get('valor_max', '') }}"
-            >
 
             <input
               type="text"

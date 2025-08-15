@@ -7,8 +7,7 @@ from app.controller.funcionario_controller import cadastrar_funcionario
 
 funcionario_bp = Blueprint('funcionario', __name__)
 
-# ✅ LISTAGEM COM FILTRO DE BUSCA
-@funcionario_bp.route('/home', methods=['GET'])
+@funcionario_bp.route('/funcionarios', methods=['GET'])
 def listar_funcionarios():
     busca = request.args.get('busca', '').strip()
     filtro = request.args.get('filtro', '').strip()
