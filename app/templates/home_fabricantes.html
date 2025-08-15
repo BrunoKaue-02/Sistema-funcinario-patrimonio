@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fabricantes - Sistema</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}" />
+</head>
+
+<body x-data="{ show: false }" class="h-screen">
+  <div class="flex h-full">
+
+    <!-- MENU LATERAL -->
+    <aside x-show="show" x-transition x-cloak class="w-72 h-full bg-white border-r shadow z-10 p-4">
+      <h1 class="font-semibold text-2xl px-4 pt-3">Olá {{ session['user_email'] }}</h1>
+      <ul class="mt-2">
+        <li class="block px-6 py-4"><a href="/funcionarios">Funcionários</a></li>
+        <li class="block px-6 py-4"><a href="/patrimonios">Patrimônios</a></li>
+        <li class="block px-6 py-4"><a href="/home_notas">Notas Fiscais</a></li>
+        <li class="block px-6 py-4"><a href="/home_fabricantes">Fabricantes</a></li>
+        <li class="block px-6 py-4"><a href="{{ url_for('index.logout') }}">Sair</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="flex-1 transition-all duration-300 ease-in-out">
+
+      <!-- HEADER -->
+      <header class="flex justify-between items-center px-8 py-4 bg-slate-900 text-white">
+        <button @click="show = !show" @click.outside="show = false">
+          <template x-if="!show">
+            <img src="/static/icons/menu.svg" alt="Menu" />
+          </template>
+          <template x-if="show">
+            <img src="/static/icons/close.svg" alt="Fechar" />
+          </template>
+        </button>
+      </header>
+
+      <!-- MAIN -->
+      <main class="p-4 bg-gray-100 h-[calc(100%-64px)] overflow-auto">
+        <div class="w-full flex justify-between items-center mb-4">
+          <h1 class="text-3xl font-semibold">Fabricantes</h1>
+
+          <a href="/fabricante/novo"
+             class="fixed bottom-0 right-0 m-2 p-2 bg-slate-900 text-white font-semibold rounded-md hover:bg-slate-800 transition">
+            <img src="{{ url_for('static', filename='icons/add.svg') }}" alt="Adicionar fabricante" />
+          </a>
+        </div>
+
+        <table class="w-full table-auto md:table-fixed border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+          <thead>
+            <tr class="bg-slate-950 text-white">
+              <th class="px-6 py-3 text-left">ID</th>
+              <th class="px-6 py-3 text-left">Nome</th>
+              <th class="px-6 py-3 text-left">Email</th>
+              <th class="px-6 py-3 text-left">CNPJ</th>
+              <th class="px-6 py-3 text-left">Ações</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            {% for fabricante in fabricantes %}
+            <tr class="bg-white hover:bg-blue-50">
+              <td class="px-6 py-4">{{ fabricante.id_fabricante }}</td>
+              <td class="px-6 py-4">{{ fabricante.nome }}</td>
+              <td class="px-6 py-4">{{ fabricante.email }}</td>
+              <td class="px-6 py-4">{{ fabricante.cnpj }}</td>
+              <td class="px-6 py-4 flex gap-2">
+                <!-- Botão Editar -->
+                <a href="{{ url_for('fabricante.editar_fabricante', id=fabricante.id_fabricante) }}"
+                   class="p-2 bg-slate-900 text-white rounded-md hover:bg-slate-800 transition">
+                  <img src="{{ url_for('static', filename='icons/edit.svg') }}" alt="Editar" />
+                </a>
+
+                <!-- Botão Deletar -->
+                <form action="{{ url_for('fabricante.deletar_fabricante', id=fabricante.id_fabricante) }}"
+                      method="POST"
+                      onsubmit="return confirm('Deseja realmente excluir este fabricante?');">
+                  <button type="submit" class="p-2 bg-red-600 text-white rounded-md hover:bg-red-500 transition">
+                    <img src="{{ url_for('static', filename='icons/remove.svg') }}" alt="Remover" />
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                Nenhum fabricante cadastrado.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Alpinejs Core -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+
+</html>

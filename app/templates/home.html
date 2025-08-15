@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Patrimônio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='output.css') }}">
+</head>
+
+<body class="bg-gray-100 h-screen">
+
+   <div class="flex h-screen bg-gray-100">
+        <!-- Coluna esquerda (conteúdo principal) -->
+        <div class="flex-1 flex items-center justify-center">
+            <div style="width: 300px" class="bg-gray-200 rounded-lg p-12 shadow-lg flex flex-col items-center">
+                <h1 class="text-slate-900 font-semibold mt-4 mb-6">Bem vindo</h1>
+
+                <div class="flex flex-col gap-2 items-center">
+                    <a href="/patrimonios" class="w-48 text-sm bg-slate-900 text-white py-2 px-6 rounded-lg hover:bg-slate-800 transition text-center">
+                        Acessar Patrimônios
+                    </a>
+                    <a href="/funcionarios" class="w-48 text-sm bg-slate-900 text-white py-2 px-6 rounded-lg hover:bg-slate-800 transition text-center">
+                        Acessar Funcionários
+                    </a>
+                    <a href="/fabricantes" class="w-48 text-sm bg-slate-900 text-white mb-6 py-2 px-6 rounded-lg hover:bg-slate-800 transition text-center">
+                        Acessar Fabricantes
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Coluna direita (dashboard lateral) -->
+        <div class="w-96 bg-slate-900 text-white p-4 flex flex-col gap-4">
+            <!-- Card 1 -->
+            <div class="flex gap-3 bg-white text-slate-900 rounded-lg p-4 shadow-md">
+                <div class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-500">
+                    <img src="{{ url_for('static', filename='icons/note.png') }}" alt="ícone fábrica" class="w-full h-full object-cover rounded-md">
+                </div>
+                <div class="text-sm">
+                    <p class="font-semibold">Quantidade de Patrimônios:</p>
+                    <p>{{ quantidade_patrimonio }}</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="flex gap-3 bg-white text-slate-900 rounded-lg p-4 shadow-md">
+                <div class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-500">
+                    <img src="{{ url_for('static', filename='icons/funcionario.png') }}" alt="ícone funcionario" class="w-full h-full object-cover rounded-md">
+                </div>
+                <div class="text-sm">
+                    <p class="font-semibold">Quantidade de Funcionários:</p>
+                    <p>{{ quantidade_funcionario }}</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="flex gap-3 bg-white text-slate-900 rounded-lg p-4 shadow-md">
+                <div class="w-20 h-20 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-500">
+                    <img src="{{ url_for('static', filename='icons/fabrica.png') }}" alt="ícone fábrica" class="w-full h-full object-cover rounded-md">
+                </div>
+                <div class="text-sm">
+                    <p class="font-semibold">Quantidade de Fornecedores:</p>
+                    <p>{{ quantidade_fabricante }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

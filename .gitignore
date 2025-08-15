@@ -1,0 +1,7 @@
+.env
+test.py
+api.http
+node_modules/
+venv
+node_modules
+.pyc
